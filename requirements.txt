@@ -1,0 +1,9 @@
+altair
+numpy
+pandas
+pydeck
+streamlit
+yfinance
+plotly.express
+StockNews
+FundamentalData
