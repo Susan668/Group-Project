@@ -1,13 +1,17 @@
 import streamlit as st, pandas as pd, numpy as np, yfinance as yf
 import plotly.express as px
 
-# Tab Title
+# Reference of the codes for our group project: Dashora.R. [Financial Programming with Ritvik, CFA]. (2022, December 25). Streamlit STOCK dashboard using Python. [Video]. YouTube. https://youtu.be/fdFfpEtv5BU?si=AqqZLsS0OtXckGub
+
+# Setting Tab Title
 st.set_page_config(page_title="BullBear", page_icon=":computer:")
 
+# Adding the logo to the web application, the logo is created by ourselves
 from PIL import Image
 logo = Image.open('logo.png')
 st.image(logo)
-# Title & Intro
+
+# Adding the title and introduction to the web application
 with st.container():
   st.title("BullBear Stock Analysis:wave:")
   st.write("""
@@ -15,13 +19,24 @@ with st.container():
   Here's a simple webpage which you can easily track the returns of the technology stocks that you choose.
   """)
 
-
+# Creating the dropdown menu of ten trendy technology stocks, and the dates for the users to select 
 ticker = st.sidebar.selectbox("Ticker",
     ("MSFT", "GOOG", "AMZN", "NVDA","AAPL","META", "TSLA", "CRM", "AMD","BABA" ))
 start_date = st.sidebar.date_input("Start Date")
 end_date = st.sidebar.date_input("End Date")
 
-data = yf.download(ticker,start=start_date, end=end_date)
+# Retrieving the data from yfinance
+try:
+  data = yf.download(ticker,start=start_date, end=end_date)
+  if data.empty:
+      print("No data found for the specified range and ticker.")
+  else:
+       print(data)
+except Exception as e:
+  print(f"Failed to download data: {e}")
+
+# Plotting the graph to see the movements of Adjusted Close (Adj close)
+# Adjusted Close is the closing price after adjustments for all applicable splits and dividend distributions.
 fig = px.line(data, x = data.index, y = data['Adj Close'],title = ticker) #this is for the line-chart with a built in zoom feature
 st.plotly_chart(fig)
 
