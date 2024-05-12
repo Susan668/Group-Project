@@ -6,4 +6,4 @@ streamlit
 yfinance
 plotly.express
 stocknews
-alpha_vantage
+
