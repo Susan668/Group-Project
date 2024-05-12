@@ -3,8 +3,8 @@ Here's a simple webpage which you can easily track the returns of the technology
 
 Group Members: Davide Donati, Laurent Steiner, Leon Maier, Mathias Model, Melanie Yvonne Andri Halter, Viola Maria De Biasio, Yongxiao Sun
 
-APIs: yfinance: Retrieve stock data from Yahoo Finance 
-      StocksNews: Scrape financial News from Yahoo and analyse the sentiment
+APIs: 1. yfinance: Retrieve stock data from Yahoo Finance 
+      2. StocksNews: Scrape financial News from Yahoo and analyse the sentiment
 
 Usage:
 1. Select the techology stock by choosing its ticker from the drop down menu on the left.
