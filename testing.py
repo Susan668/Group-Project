@@ -1,7 +1,7 @@
 import streamlit as st, pandas as pd, numpy as np, yfinance as yf
 import plotly.express as px
 
-# Reference of the codes for our group project: Dashora.R. [Financial Programming with Ritvik, CFA]. (2022, December 25). Streamlit STOCK dashboard using Python. [Video]. YouTube. https://youtu.be/fdFfpEtv5BU?si=AqqZLsS0OtXckGub
+# Reference of the codes starting from line 23 to the end: Dashora.R. [Financial Programming with Ritvik, CFA]. (2022, December 25). Streamlit STOCK dashboard using Python. [Video]. YouTube. https://youtu.be/fdFfpEtv5BU?si=AqqZLsS0OtXckGub
 
 # Setting Tab Title
 st.set_page_config(page_title="BullBear", page_icon=":computer:")
