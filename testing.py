@@ -3,15 +3,15 @@ import plotly.express as px
 
 # Reference of the codes starting from line 23 to the end: Dashora.R. [Financial Programming with Ritvik, CFA]. (2022, December 25). Streamlit STOCK dashboard using Python. [Video]. YouTube. https://youtu.be/fdFfpEtv5BU?si=AqqZLsS0OtXckGub
 
-# Setting Tab Title
+# Tab-Titel festlegen
 st.set_page_config(page_title="BullBear", page_icon=":computer:")
 
-# Adding the logo to the web application, the logo is created by ourselves
+# Hinzufügen des Logos zur Webanwendung, das Logo wird von uns selbst erstellt
 from PIL import Image
 logo = Image.open('logo.png')
 st.image(logo)
 
-# Adding the title and introduction to the web application
+# Hinzufügen des Titels und der Einleitung zur Webanwendung
 with st.container():
   st.title("BullBear Stock Analysis:wave:")
   st.write("""
@@ -19,13 +19,13 @@ with st.container():
   Here's a simple webpage which you can easily track the returns of the technology stocks that you choose.
   """)
 
-# Creating the dropdown menu of ten trendy technology stocks, and the dates for the users to select 
+# Erstellung eines Dropdown-Menüs mit zehn Technologiewerten und den Daten, die die Benutzer auswählen können 
 ticker = st.sidebar.selectbox("Ticker",
     ("MSFT", "GOOG", "AMZN", "NVDA","AAPL","META", "TSLA", "CRM", "AMD","BABA" ))
 start_date = st.sidebar.date_input("Start Date")
 end_date = st.sidebar.date_input("End Date")
 
-# Retrieving the data from yfinance
+# Abrufen der Daten aus yfinance und Testen, ob die Daten erfolgreich geladen werden können
 try:
   data = yf.download(ticker,start=start_date, end=end_date)
   if data.empty:
@@ -35,13 +35,14 @@ try:
 except Exception as e:
   print(f"Failed to download data: {e}")
 
-# Plotting the graph to see the movements of Adjusted Close (Adj close)
-# Adjusted Close is the closing price after adjustments for all applicable splits and dividend distributions.
+# Darstellung des Diagramms, um die Bewegungen des Adjusted Close (Adj close) zu sehen
 fig = px.line(data, x = data.index, y = data['Adj Close'],title = ticker) #this is for the line-chart with a built in zoom feature
 st.plotly_chart(fig)
 
+# Erstellen der Registerkarten für Pricing Data und Top 5 News
 pricing_data, news = st.tabs(["Pricing Data", "Top 5 News"])
 
+# Erstellen Sie für Pricing Data die Tabellen mit den Preisbewegungen (price movements), der jährlichen Rendite (annual return), der Standardabweichung (standard deviation) und der zusätzlichen Rendite von Rick (rick adj. return).
 with pricing_data:
     st.header("Price Movements")
     data2 = data
@@ -54,7 +55,10 @@ with pricing_data:
     st.write("Standard Deviation is", stdev*100, "%")
     st.write("Risk Adj. Return is", annual_return/(stdev*100))
 
+# Abrufen von Daten für die Nachrichten von Aktien 
 from stocknews import StockNews
+
+#Anzeige der 5 wichtigsten Nachrichten mit Veröffentlichungsdaten, Titeln, Zusammenfassungen, Titelstimmungen (title sentiment) und Nachrichtenempfindungen (news sentiment). 
 with news:
     st.header(f"News of {ticker}")
     sn = StockNews(ticker, save_news=False)
